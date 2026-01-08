@@ -1,0 +1,500 @@
+/* =========================================================
+   🎨 GLOBAL THEME VARIABLES & BASE STYLES
+   ========================================================= */
+:root {
+  --bg: #071525;
+  --card: #071625;
+  --muted: #9aa6b2;
+  --accent: #5eead4;
+  --accent-2: #60a5fa;
+  --glass: rgba(255, 255, 255, 0.03);
+  --card-2: #0b2030;
+  --text: #ffffff; /* ✅ Add this line (white text for dark mode) */
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  --border: rgba(255, 255, 255, 0.15);
+  --border-light: rgba(255, 255, 255, 0.1);
+  --border-focus: rgba(94, 234, 212, 0.5);
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --label: #9aa6b2;
+}
+
+/* Light Theme */
+.light-theme {
+  --bg: #f5f5f5;
+  --card: #ffffff;
+  --card-2: #e5e7eb;
+  --muted: #6b7280;
+  --accent: #3b82f6;
+  --accent-2: #06b6d4;
+  --glass: rgba(0, 0, 0, 0.03);
+  --text: #111827; /* ✅ black text for light mode */
+  --border: rgba(0, 0, 0, 0.15);
+  --border-light: rgba(0, 0, 0, 0.1);
+  --border-focus: rgba(59, 130, 246, 0.5);
+  --input-bg: rgba(0, 0, 0, 0.05);
+  --label: #374151;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 100vh;
+
+  /* Use CSS variables for theme support */
+  background: var(--bg);
+  color: var(--text);
+
+  overflow-x: hidden; /* prevent horizontal white flash */
+  overflow-y: auto; /* allow vertical scrolling */
+
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  transition: background 0.3s ease, color 0.3s ease; /* smooth theme switch */
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
+
+.page-header {
+  width: 100%;
+  background: var(--card-2); /* solid background color from your theme */
+  padding: 5px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.page-header .header-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 18px;
+  display: flex;
+  justify-content: space-between; /* title on left, button on right */
+  align-items: center;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: var(--accent); /* bright accent text for contrast */
+  font-weight: 800;
+}
+
+.theme-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.theme-btn:hover {
+  background: var(--accent-10);
+  transform: scale(1.05);
+}
+
+.theme-icon {
+  width: 22px;
+  height: 22px;
+  transition: opacity 0.3s ease, transform 0s ease;
+}
+
+.hidden {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+}
+
+/* =========================================================
+   🧱 LAYOUT WRAPPER
+   ========================================================= */
+.wrap {
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 18px;
+  width: 95%; /* responsive width */
+}
+
+/* =========================================================
+   🧭 TOP BAR & HEADER
+   ========================================================= */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Logo inside title */
+.logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #052840;
+}
+
+h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* =========================================================
+   ⚙️ CONTROL PANEL (Dropdowns, Inputs)
+   ========================================================= */
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.controls label {
+  font-size: 13px;
+  color: var(--label);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.controls select,
+input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--input-bg);
+  color: var(--text);
+  transition: border 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.controls select:focus,
+input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  background: var(--card-2);
+}
+
+.hidden {
+  display: none;
+}
+
+/* =========================================================
+   🧩 MAIN GRID LAYOUT (Left form + Right chart)
+   ========================================================= */
+.grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 20px;
+}
+
+/* Card-style container */
+.card {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+}
+
+
+.left h2,
+.right h2 {
+  margin-top: 0;
+}
+
+/* =========================================================
+   🧾 TASK INPUT FORM
+   ========================================================= */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.074);
+  background: transparent;
+  color: inherit;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.form input:hover {
+  border: 1px solid var(--accent); /* change border color on hover */
+}
+
+
+/* =========================================================
+   🔘 BUTTON STYLES
+   ========================================================= */
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 99, 147, 0.262);
+  background: transparent;
+  color: var(--accent-2);
+  cursor: pointer;
+}
+
+/* Primary button (blue gradient) */
+.btn.primary {
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+  color: #042131;
+  border: none;
+  font-weight: 700;
+}
+
+/* Run button (green gradient) */
+.btn.run {
+  background: linear-gradient(90deg, #34d399, #10b981);
+  color: #042131;
+  border: none;
+  font-weight: 700;
+}
+
+/* =========================================================
+   📋 TASK LIST DISPLAY
+   ========================================================= */
+.task-list {
+  margin-top: 12px;
+  max-height: 220px;
+  overflow: auto;
+  padding-right: 6px;
+}
+
+/* Each task row */
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+/* Task metadata layout */
+.task .meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Task icon badge */
+.badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0b2238, #02263a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.small {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* =========================================================
+   📊 PERFORMANCE METRICS (Avg WT / TAT)
+   ========================================================= */
+.metrics {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.stat {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  text-align: center;
+}
+
+.stat .label {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.stat .value {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+/* =========================================================
+   🕒 GANTT CHART CONTAINER
+   ========================================================= */
+.gantt-wrap {
+  background: var(--card-2);
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 240px;
+  overflow: auto;
+}
+
+.gantt {
+  position: relative; /* important for absolute bars */
+  width: 100%;
+  height: auto; /* allow dynamic height */
+}
+
+/* =========================================================
+   🎬 GANTT BAR STYLES (Process States)
+   ========================================================= */
+.gantt-bar {
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  color: #042131;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: left 0.5s linear, width 0.5s linear;
+}
+
+/* Colors for different execution states */
+.gantt-run {
+  background: linear-gradient(90deg, #34d399, #5eead4);
+}
+
+.gantt-suspended {
+  background: linear-gradient(90deg, #fbbf24, #fb7185);
+}
+
+.gantt-completed {
+  background: linear-gradient(90deg, #94a3b8, #64748b);
+}
+
+.gantt-wait {
+  background: linear-gradient(90deg, #071526, #0b2030);
+  color: #9aa6b2;
+}
+
+/* =========================================================
+   📜 LOG CONSOLE (Simulation Output)
+   ========================================================= */
+.log {
+  background: var(--card-2); /* same as gantt-wrap */
+  border-radius: 6px;
+  padding: 8px;
+  height: 180px;
+  overflow: auto;
+  font-family: monospace;
+  font-size: 13px;
+  border: 0px solid var(--border); /* also adapts to theme */
+  transition: background 0.3s ease, border 0.3s ease; /* smooth theme switch */
+}
+
+/* =========================================================
+   🦶 FOOTER
+   ========================================================= */
+footer {
+  text-align: center;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* =========================================================
+   📱 RESPONSIVE (For mobile/tablet)
+   ========================================================= */
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .controls {
+    flex-wrap: wrap;
+  }
+}
+
+/* =========================================================
+   ⏱ ADVANCED GANTT BAR LAYOUT (Absolute Positioned)
+   ========================================================= */
+.gantt-container {
+  position: relative;
+  width: 100%;
+  height: auto; /* allow it to grow */
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  overflow-x: auto; /* horizontal scroll for long timelines */
+  overflow-y: hidden;
+  white-space: nowrap; /* prevent line breaks in bars */
+}
+
+/* Absolute bars with shadow & smooth animation */
+.gantt-bar {
+  position: absolute;
+  height: 40px;
+  top: 10px;
+  border-radius: 6px;
+  text-align: center;
+  color: #042131;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Time markers below the chart */
+.gantt-markers {
+  position: relative;
+  margin-top: 10px;
+  height: 18px;
+}
+
+.gantt-markers .marker {
+  position: absolute;
+  top: 0;
+  font-size: 11px;
+  color: var(--muted);
+  transform: translateX(-50%);
+}

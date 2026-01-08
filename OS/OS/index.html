@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>OS Scheduling Simulator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <header class="page-header">
+    <div class="header-content">
+      <h2>OS Scheduling Simulator</h2>
+
+      <!-- Theme toggle button -->
+      <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+        <svg
+          id="icon-sun"
+          class="theme-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+
+        <svg
+          id="icon-moon"
+          class="theme-icon hidden"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M21 12.79A9 9 0 1 1 11.21 3
+             7 7 0 0 0 21 12.79z"
+          ></path>
+        </svg>
+      </button>
+      
+    </div>
+  </header>
+  <body>
+    <div class="wrap">
+      <header class="topbar">
+        <div class="controls">
+          <label
+            >Algorithm
+            <select id="algorithm">
+              <option value="FCFS">FCFS</option>
+              <option value="SJF">SJF</option>
+              <option value="RR">Round Robin</option>
+              <option value="PRIORITY">Priority</option>
+              <option value="FOCUS">Focus Mode</option>
+            </select>
+          </label>
+
+          <label
+            >Mode
+            <select id="mode">
+              <option value="preemptive">Preemptive</option>
+              <option value="non-preemptive">Non-Preemptive</option>
+            </select>
+          </label>
+
+          <label id="quantumLabel" 
+            >Quantum
+            <input id="quantum" type="number" min="1" value="1" />
+          </label>
+
+          <label
+            >Speed
+            <select id="speed">
+              <option value="200">Fast</option>
+              <option value="450" selected>Normal</option>
+              <option value="900">Slow</option>
+            </select>
+          </label>
+        </div>
+      </header>
+
+      <main class="grid">
+        <section class="card left">
+          <h2>Add Task</h2>
+          <div class="form">
+            <input
+              id="name"
+              type="text"
+              placeholder="Task name (e.g., Study)"
+            />
+            <input
+              id="arrival"
+              type="number"
+              placeholder="Arrival time (default 0)"
+              min="0"
+            />
+            <input id="burst" type="number" placeholder="Burst time" min="1" />
+            <input
+              id="priorityInput"
+              type="number"
+              placeholder="Priority (1 = highest)"
+              min="1"
+            />
+            <div class="row">
+              <button id="addBtn" class="btn primary">Add Task</button>
+              <button id="clearBtn" class="btn">Clear All</button>
+            </div>
+          </div>
+
+          <h3>Task Queue</h3>
+          <div class="task-list" id="taskList">
+            <!-- tasks -->
+          </div>
+
+          <div class="row" style="margin-top: 12px">
+            <button id="runBtn" class="btn run">Start Simulation</button>
+            <button id="exportBtn" class="btn">Export Log</button>
+          </div>
+        </section>
+
+        <section class="card right">
+          <h2>Visualization</h2>
+
+          <div class="metrics">
+            <div class="stat">
+              <div class="label">Avg Waiting</div>
+              <div id="avgWait" class="value">-</div>
+            </div>
+            <div class="stat">
+              <div class="label">Avg Turnaround</div>
+              <div id="avgTurn" class="value">-</div>
+            </div>
+            <div class="stat">
+              <div class="label">Total Time</div>
+              <div id="totalTime" class="value">-</div>
+            </div>
+          </div>
+
+          <div class="gantt-wrap">
+            <div id="gantt" class="gantt">
+              Gantt will appear here after start.
+            </div>
+          </div>
+
+          <h3>Live Log</h3>
+          <pre id="log" class="log"></pre>
+        </section>
+      </main>
+
+      <footer>
+        <small
+          >Made for learning — includes FCFS, SJF,SRTF, Priority
+          (non-preemptive), Round Robin, and Focus Mode.</small
+        >
+      </footer>
+    </div>
+
+    <script>
+      const toggle = document.getElementById("theme-toggle");
+      toggle.addEventListener("click", () => {
+        document.body.classList.toggle("light-theme");
+      });
+    </script>
+
+    <!-- Include algorithms first -->
+    <script src="algos/fcfs.js"></script>
+    <script src="algos/sjf_non.js"></script>
+    <script src="algos/sjf_preemptive.js"></script>
+    <script src="algos/priority_non.js"></script>
+    <script src="algos/priority_preemptive.js"></script>
+    <script src="algos/rr.js"></script>
+    <script src="algos/focus_non.js"></script>
+    <script src="algos/focus_preemptive.js"></script>
+
+    <script src="script1.js"></script>
+  </body>
+</html>
